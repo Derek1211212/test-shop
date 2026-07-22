@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Vesperine — Fragrance Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-1: #170b12;
+            --bg-2: #2c1220;
+            --ivory: #f3e9dc;
+            --ivory-dim: #e7d9c6;
+            --ink: #251a1e;
+            --muted: #8a6274;
+            --gold: #b8935a;
+            --gold-soft: #d8c19a;
+            --whatsapp: #1f7a4d;
+            --whatsapp-dark: #155c39;
+            --glow: 190, 140, 80;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(600px 500px at 50% 0%, rgba(var(--glow), 0.22), transparent 60%),
+                linear-gradient(160deg, var(--bg-1), #120810 55%, var(--bg-2));
+            background-attachment: fixed;
+            font-family: 'Manrope', sans-serif;
+            color: var(--ivory);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 12px;
+            transition: background 0.8s ease;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(120% 120% at 50% 10%, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== PARTICLES CANVAS ===== */
+        #particlesCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .phone {
+            position: relative;
+            width: min(400px, 94vw);
+            height: min(840px, 92vh);
+            border-radius: 44px;
+            overflow: hidden;
+            background: linear-gradient(165deg, var(--bg-1), var(--bg-2) 80%);
+            box-shadow:
+                0 40px 80px -20px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(255, 255, 255, 0.06),
+                inset 0 0 60px rgba(0, 0, 0, 0.35);
+            z-index: 1;
+        }
+
+        .topbar {
+            position: absolute;
+            top: 22px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 30;
+        }
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            cursor: pointer;
+            color: var(--ivory);
+            transition: background 0.25s ease, transform 0.2s ease;
+            position: relative;
+        }
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+        .icon-btn:active {
+            transform: scale(0.92);
+        }
+        .icon-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .icon-btn.pulse {
+            animation: pulseRing 1.5s ease-out 2;
+        }
+        @keyframes pulseRing {
+            0% {
+                box-shadow: 0 0 0 0 rgba(216, 193, 154, 0.65);
+            }
+            70% {
+                box-shadow: 0 0 0 14px rgba(216, 193, 154, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(216, 193, 154, 0);
+            }
+        }
+
+        .icon-wrap {
+            position: relative;
+        }
+
+        .grid-hint {
+            position: absolute;
+            top: 52px;
+            right: 0;
+            background: rgba(20, 12, 16, 0.94);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            padding: 7px 12px;
+            border-radius: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 40;
+        }
+        .grid-hint::after {
+            content: "";
+            position: absolute;
+            top: -4px;
+            right: 14px;
+            width: 8px;
+            height: 8px;
+            background: rgba(20, 12, 16, 0.94);
+            transform: rotate(45deg);
+        }
+        .grid-hint.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .icon-wrap .tooltip-hover {
+            position: absolute;
+            top: 52px;
+            right: 0;
+            background: rgba(20, 12, 16, 0.94);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            padding: 7px 12px;
+            border-radius: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 41;
+        }
+        .icon-wrap .tooltip-hover::after {
+            content: "";
+            position: absolute;
+            top: -4px;
+            right: 14px;
+            width: 8px;
+            height: 8px;
+            background: rgba(20, 12, 16, 0.94);
+            transform: rotate(45deg);
+        }
+        .icon-wrap:hover .tooltip-hover {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------- HERO STAGE ---------- */
+        .stage {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .ambient {
+            position: relative;
+            height: 34%;
+            padding: 78px 30px 0;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .ambient .eyebrow {
+            font-family: 'Manrope', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold-soft);
+            font-weight: 700;
+            margin: 0 0 6px;
+        }
+        .ambient h1 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 1.08;
+            margin: 0;
+            color: var(--ivory);
+            max-width: 220px;
+        }
+
+        .watermark {
+            position: absolute;
+            right: -18px;
+            top: 10px;
+            width: 150px;
+            height: 150px;
+            opacity: 0.16;
+            transform: rotate(8deg);
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+            object-fit: contain;
+            background: transparent;
+        }
+
+        /* ---------- PRODUCT CARD ---------- */
+        .card {
+            position: relative;
+            flex: 1;
+            background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dim) 100%);
+            border-radius: 34px 34px 0 0;
+            margin-top: -26px;
+            padding: 26px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.25);
+            color: var(--ink);
+            z-index: 5;
+            min-height: 0;
+        }
+
+        .card::before,
+        .card::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            width: 90%;
+            height: 34px;
+            border-radius: 28px 28px 0 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .card::before {
+            top: -10px;
+            background: var(--ivory-dim);
+            transform: translateX(-50%) rotate(-2.2deg) scale(0.97);
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.12);
+        }
+        .card::after {
+            top: -17px;
+            width: 82%;
+            background: #ddccb2;
+            transform: translateX(-50%) rotate(2.4deg) scale(0.94);
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.14);
+        }
+
+        .card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .card-head .titles {
+            min-width: 0;
+        }
+        .card-head h2 {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 23px;
+            line-height: 1.15;
+            margin: 0 0 6px;
+            letter-spacing: -0.01em;
+            transition: opacity 0.3s ease;
+        }
+        .card-head .notes {
+            font-size: 12.5px;
+            letter-spacing: 0.03em;
+            color: var(--muted);
+            margin: 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease;
+        }
+
+        .heart {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(37, 26, 30, 0.15);
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+        .heart:active {
+            transform: scale(0.9);
+        }
+        .heart svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--ink);
+            fill: none;
+            stroke-width: 1.8;
+            transition: fill 0.2s ease, stroke 0.2s ease;
+        }
+        .heart.saved svg {
+            fill: #b23b52;
+            stroke: #b23b52;
+        }
+
+        /* ----- BOTTLE WITH 3D TILT ----- */
+        .bottle-zone {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            touch-action: none;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+            min-height: 0;
+            padding: 6px 0;
+            perspective: 800px;
+        }
+        .bottle-zone:active {
+            cursor: grabbing;
+        }
+
+        .bottle-wrap {
+            width: 190px;
+            max-height: 100%;
+            transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), opacity 0.35s ease;
+            filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.18));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            pointer-events: auto;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+        .bottle-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            object-fit: contain;
+            max-height: 230px;
+            background: transparent;
+            pointer-events: auto;
+            -webkit-user-drag: none;
+            user-drag: none;
+            touch-action: none;
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+            transition: filter 0.3s ease;
+        }
+        .bottle-wrap:hover img {
+            filter: drop-shadow(0 4px 30px rgba(var(--glow), 0.4));
+        }
+
+        .bottle-wrap.out-left {
+            transform: translateX(-140px) rotate(-8deg) scale(0.85);
+            opacity: 0;
+        }
+        .bottle-wrap.out-right {
+            transform: translateX(140px) rotate(8deg) scale(0.85);
+            opacity: 0;
+        }
+        .bottle-wrap.in {
+            transform: translateX(0) rotate(0) scale(1);
+            opacity: 1;
+        }
+
+        /* ---- bottle glow ring ---- */
+        .bottle-glow {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(var(--glow), 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 0;
+        }
+        .bottle-zone:hover .bottle-glow {
+            opacity: 1;
+        }
+
+        .swipe-hint {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 700;
+            opacity: 0.7;
+            pointer-events: none;
+            white-space: nowrap;
+            animation: hintPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes hintPulse {
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin: 10px 0 16px;
+            flex-shrink: 0;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(37, 26, 30, 0.22);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .dot.active {
+            width: 18px;
+            border-radius: 4px;
+            background: var(--ink);
+        }
+
+        .buy-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-shrink: 0;
+        }
+
+        .price-tag {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 8px 16px 9px;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid rgba(184, 147, 90, 0.35);
+            transition: transform 0.3s ease;
+        }
+        .price-tag:hover {
+            transform: scale(1.03);
+        }
+        .price-tag .p-label {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        .price-tag .p-amount {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            color: var(--ink);
+        }
+        .price-tag .p-currency {
+            font-size: 16px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .price-tag .p-number {
+            font-size: 30px;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            display: inline-block;
+            transition: transform 0.15s ease;
+        }
+        .price-tag .p-number.pop {
+            animation: pricePop 0.3s ease;
+        }
+        @keyframes pricePop {
+            0% {
+                transform: scale(1);
+            }
+            40% {
+                transform: scale(1.15);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: linear-gradient(180deg, var(--whatsapp), var(--whatsapp-dark));
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 13px 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 20px -6px rgba(21, 92, 57, 0.55);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            white-space: nowrap;
+        }
+        .whatsapp-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+        .whatsapp-btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+        .whatsapp-btn svg {
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        /* ---------- GRID VIEW ---------- */
+        .grid-view {
+            position: absolute;
+            inset: 0;
+            background: #ffffff;
+            opacity: 0;
+            transform: scale(0.94);
+            pointer-events: none;
+            transition: opacity 0.45s ease, transform 0.45s cubic-bezier(.2, .8, .2, 1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            border-radius: 44px;
+            overflow: hidden;
+        }
+        .grid-view.open {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .grid-view .icon-btn {
+            background: rgba(37, 26, 30, 0.06);
+            border: 1px solid rgba(37, 26, 30, 0.14);
+            color: var(--ink);
+        }
+        .grid-view .icon-btn:hover {
+            background: rgba(37, 26, 30, 0.12);
+        }
+
+        .grid-header {
+            padding: 22px 22px 14px;
+            flex-shrink: 0;
+        }
+        .grid-header .eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 700;
+            margin: 0 0 4px;
+        }
+        .grid-header h2 {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 24px;
+            margin: 0;
+            color: var(--ink);
+        }
+
+        .grid-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 6px 18px 24px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .grid-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-item {
+            background: linear-gradient(180deg, var(--ivory), var(--ivory-dim));
+            border: 1px solid rgba(37, 26, 30, 0.08);
+            border-radius: 20px;
+            padding: 14px 12px 12px;
+            cursor: pointer;
+            color: var(--ink);
+            opacity: 0;
+            transform: translateY(16px) scale(0.96);
+            transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 18px rgba(37, 26, 30, 0.10);
+        }
+        .grid-view.open .grid-item {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .grid-item:hover {
+            box-shadow: 0 12px 24px rgba(37, 26, 30, 0.16);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .grid-item:active {
+            transform: scale(0.96);
+        }
+        .grid-item .thumb {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+            min-height: 90px;
+            align-items: center;
+            background: transparent;
+        }
+        .grid-item .thumb img {
+            width: 80px;
+            height: auto;
+            max-height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.15));
+            border-radius: 6px;
+            background: transparent;
+        }
+        .grid-item h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin: 0 0 3px;
+            line-height: 1.2;
+        }
+        .grid-item .g-notes {
+            font-size: 9.5px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+        .grid-item .g-price {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            overflow: hidden;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: confettiFall 1.8s ease-out forwards;
+        }
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(400px) rotate(720deg) scale(0.3);
+            }
+        }
+
+        /* ===== sparkle cursor ===== */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 18px;
+            animation: sparkleFade 0.8s ease-out forwards;
+        }
+        @keyframes sparkleFade {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(180deg);
+            }
+        }
+
+        @media (max-width: 380px) {
+            .card-head h2 {
+                font-size: 20px;
+            }
+            .ambient h1 {
+                font-size: 26px;
+            }
+            .bottle-wrap {
+                width: 150px;
+            }
+            .bottle-wrap img {
+                max-height: 180px;
+            }
+            .grid-item .thumb img {
+                width: 70px;
+            }
+        }
+        @media (max-height: 700px) {
+            .ambient {
+                padding-top: 62px;
+                height: 28%;
+            }
+            .ambient h1 {
+                font-size: 24px;
+            }
+            .card {
+                padding: 18px 18px 16px;
+            }
+            .bottle-wrap {
+                width: 160px;
+            }
+            .bottle-wrap img {
+                max-height: 180px;
+            }
+            .dots {
+                margin: 6px 0 10px;
+            }
+            .grid-item .thumb img {
+                width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== FLOATING PARTICLES ===== -->
+    <canvas id="particlesCanvas"></canvas>
+
+    <!-- ===== CONFETTI CONTAINER ===== -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <div class="phone">
+
+        <!-- ===================== HERO STAGE ===================== -->
+        <div class="stage" id="stage">
+
+            <div class="topbar">
+                <button class="icon-btn" id="backBtn" aria-label="Back" title="Back">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <div class="icon-wrap">
+                    <button class="icon-btn" id="gridBtn" aria-label="Show all fragrances" title="Show all">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="7" cy="7" r="2"></circle><circle cx="17" cy="7" r="2"></circle><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+                    </button>
+                    <div class="tooltip-hover">Show all fragrances</div>
+                    <div class="grid-hint" id="gridHint">Tap to see all fragrances →</div>
+                </div>
+            </div>
+
+            <div class="ambient">
+                <img class="watermark" id="watermark" src="" alt="" />
+                <p class="eyebrow">Vesperine Parfums</p>
+                <h1>Your evening,<br />bottled.</h1>
+            </div>
+
+            <div class="card">
+                <div class="card-head">
+                    <div class="titles">
+                        <h2 id="pName">—</h2>
+                        <p class="notes" id="pNotes">—</p>
+                    </div>
+                    <div class="heart" id="heartBtn" aria-label="Save to wishlist">
+                        <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.1C.5 8.2 2.3 4.8 5.7 4.2c2-.3 3.9.6 5 2.2 1.1-1.6 3-2.5 5-2.2 3.4.6 5.2 4 3.7 7.7C19.5 16.4 12 21 12 21z"/></svg>
+                    </div>
+                </div>
+
+                <div class="bottle-zone" id="bottleZone">
+                    <div class="bottle-glow" id="bottleGlow"></div>
+                    <div class="bottle-wrap in" id="bottleWrap">
+                        <img id="bottleImg" src="" alt="Perfume bottle" draggable="false" />
+                    </div>
+                    <div class="swipe-hint">← swipe to browse →</div>
+                </div>
+
+                <div class="dots" id="dots"></div>
+
+                <div class="buy-row">
+                    <div class="price-tag">
+                        <span class="p-label">Price</span>
+                        <span class="p-amount"><span class="p-currency">₵</span><span class="p-number" id="pPrice">—</span></span>
+                    </div>
+                    <a class="whatsapp-btn" id="waBtn" href="#" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.24.6 4.34 1.66 6.15L4 29l8.02-2.1a12.9 12.9 0 0 0 4 .63h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.9c-1.9 0-3.68-.5-5.24-1.44l-.37-.22-3.98 1.04 1.06-3.88-.24-.4a9.85 9.85 0 0 1-1.53-5.28c0-5.46 4.44-9.9 9.9-9.9 5.28 0 9.63 4.3 9.63 9.9 0 5.46-4.44 9.9-9.9 9.9zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5-.17 0-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>
+                        <span id="waLabel">Order on WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== GRID VIEW ===================== -->
+        <div class="grid-view" id="gridView">
+            <div class="topbar">
+                <button class="icon-btn" id="closeBtn" aria-label="Close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <div style="width:44px"></div>
+            </div>
+            <div class="grid-header">
+                <p class="eyebrow">The Collection</p>
+                <h2>All fragrances</h2>
+            </div>
+            <div class="grid-scroll">
+                <div class="grid-cols" id="gridCols"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* ============================================================
+           CONFIG & DATA
+           ============================================================ */
+        const WHATSAPP_NUMBER = "15550100100";
+
+        const products = [{
+            name: "Ember Oud",
+            notes: "Oud · Amber · Cardamom",
+            price: 128,
+            c1: "#e2a44d",
+            c2: "#7a3d10",
+            image: "pfs1.png"
+        }, {
+            name: "Black Fig",
+            notes: "Fig · Cassis · Cedar",
+            price: 118,
+            c1: "#8d5c86",
+            c2: "#3c1f3f",
+            image: "pf2.png"
+        }, {
+            name: "Salt Bloom",
+            notes: "Iris · Sea Salt · Musk",
+            price: 132,
+            c1: "#a9d6c9",
+            c2: "#3f6e63",
+            image: "pf3.webp"
+        }, {
+            name: "Smoked Vetiver",
+            notes: "Vetiver · Leather · Moss",
+            price: 145,
+            c1: "#94a35a",
+            c2: "#3a3f1c",
+            image: "pf4.webp"
+        }, {
+            name: "Velvet Tobacco",
+            notes: "Tobacco · Vanilla · Amber",
+            price: 138,
+            c1: "#d68b52",
+            c2: "#5c2e14",
+            image: "pfsss.webp"
+        }, {
+            name: "Black Opium",
+            notes: "Neroli · Cedar · Bergamot",
+            price: 124,
+            c1: "#7a8fc9",
+            c2: "#232a5e",
+            image: "pfss.webp"
+        }, {
+            name: "Rose Ash",
+            notes: "Rose · Incense · Suede",
+            price: 130,
+            c1: "#c97e8d",
+            c2: "#4a1e28",
+            image: "pf2.png"
+        }, ];
+
+        let current = 0;
+        let saved = new Set();
+        let gridIsOpen = false;
+        let currentPrice = 0;
+        let animatingPrice = false;
+
+        /* ============================================================
+           PARTICLES (floating mist)
+           ============================================================ */
+        const canvas = document.getElementById('particlesCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let particleCount = 45;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 2;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3 - 0.15;
+                this.opacity = Math.random() * 0.25 + 0.05;
+                this.life = Math.random() * 200 + 100;
+                this.maxLife = this.life;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life--;
+                if (this.life < 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+                const fade = Math.min(1, this.life / 50);
+                this.currentOpacity = this.opacity * fade;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 220, 200, ${this.currentOpacity})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            const p = new Particle();
+            p.life = Math.random() * 300;
+            particles.push(p);
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update();
+                p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        /* ============================================================
+           SPARKLE ON CLICK / CURSOR
+           ============================================================ */
+        function createSparkle(x, y, emoji = '✦') {
+            const el = document.createElement('div');
+            el.className = 'sparkle';
+            el.textContent = emoji;
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 40 + Math.random() * 60;
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            el.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+            el.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+            el.style.color = ['#ffd700', '#ff6b6b', '#ff9f43', '#f368e0', '#54a0ff', '#5f27cd', '#ff9ff3'][Math.floor(Math
+            .random() * 7)];
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 900);
+        }
+
+        document.addEventListener('click', (e) => {
+            if (Math.random() > 0.5) {
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.92) {
+                createSparkle(e.clientX, e.clientY, '·');
+            }
+        });
+
+        /* ============================================================
+           CONFETTI BURST
+           ============================================================ */
+        function fireConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6fb7', '#a66cff', '#ff9f43', '#00d2d3'];
+            for (let i = 0; i < 35; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                const size = 6 + Math.random() * 8;
+                const isCircle = Math.random() > 0.5;
+                piece.style.width = isCircle ? size + 'px' : size * 0.4 + 'px';
+                piece.style.height = isCircle ? size + 'px' : size * 1.2 + 'px';
+                piece.style.borderRadius = isCircle ? '50%' : '2px';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.left = (40 + Math.random() * 20) + '%';
+                piece.style.top = (30 + Math.random() * 30) + '%';
+                piece.style.animationDuration = (1.2 + Math.random() * 1.2) + 's';
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                piece.style.setProperty('--tx', (Math.random() - 0.5) * 300 + 'px');
+                container.appendChild(piece);
+                setTimeout(() => piece.remove(), 3000);
+            }
+        }
+
+        /* ============================================================
+           3D TILT ON BOTTLE
+           ============================================================ */
+        const bottleZone = document.getElementById('bottleZone');
+        const bottleWrap = document.getElementById('bottleWrap');
+        let tiltActive = true;
+
+        bottleZone.addEventListener('mousemove', (e) => {
+            if (!tiltActive) return;
+            const rect = bottleZone.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const rotateX = -y * 12;
+            const rotateY = x * 12;
+            bottleWrap.style.transform =
+                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+
+        bottleZone.addEventListener('mouseleave', () => {
+            bottleWrap.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+        });
+
+        // Disable tilt on touch devices
+        bottleZone.addEventListener('touchstart', () => { tiltActive = false; });
+        bottleZone.addEventListener('touchend', () => { tiltActive = true; });
+
+        /* ============================================================
+           PRICE ANIMATION (pop effect)
+           ============================================================ */
+        function animatePrice(newPrice) {
+            const el = document.getElementById('pPrice');
+            el.textContent = newPrice;
+            el.classList.remove('pop');
+            void el.offsetWidth;
+            el.classList.add('pop');
+        }
+
+        /* ============================================================
+           RENDER HERO
+           ============================================================ */
+        function renderHero(index, direction) {
+            const p = products[index];
+            const wrap = document.getElementById('bottleWrap');
+            const img = document.getElementById('bottleImg');
+            const wm = document.getElementById('watermark');
+            const glow = document.getElementById('bottleGlow');
+
+            const doSwap = () => {
+                img.src = p.image;
+                img.alt = p.name;
+                document.getElementById('pName').textContent = p.name;
+                document.getElementById('pNotes').textContent = p.notes;
+                animatePrice(p.price);
+                document.getElementById('waLabel').textContent = 'Order on WhatsApp';
+                const msg = encodeURIComponent(`Hi! I'd like to order ${p.name} (₵${p.price}). Is it available?`);
+                document.getElementById('waBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+
+                wm.src = p.image;
+                wm.alt = p.name;
+
+                document.getElementById('heartBtn').classList.toggle('saved', saved.has(index));
+
+                const hex = p.c1.replace('#', '');
+                const r = parseInt(hex.substring(0, 2), 16),
+                    g = parseInt(hex.substring(2, 4), 16),
+                    b = parseInt(hex.substring(4, 6), 16);
+                document.documentElement.style.setProperty('--glow', `${r},${g},${b}`);
+                glow.style.background =
+                    `radial-gradient(circle, rgba(${r},${g},${b},0.2) 0%, transparent 70%)`;
+
+                wrap.classList.remove('out-left', 'out-right');
+                wrap.classList.add(direction === 'left' ? 'out-right' : 'out-left');
+                void wrap.offsetWidth;
+                wrap.classList.remove('out-left', 'out-right');
+                wrap.classList.add('in');
+                updateDots();
+                // sparkle burst on change
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const rect = wrap.getBoundingClientRect();
+                        createSparkle(
+                            rect.left + rect.width / 2 + (Math.random() - 0.5) * 100,
+                            rect.top + rect.height / 2 + (Math.random() - 0.5) * 100,
+                            '✨'
+                        );
+                    }, i * 80);
+                }
+            };
+
+            if (direction) {
+                wrap.classList.remove('in');
+                wrap.classList.add(direction === 'left' ? 'out-left' : 'out-right');
+                setTimeout(doSwap, 260);
+            } else {
+                doSwap();
+            }
+        }
+
+        function updateDots() {
+            const dotsEl = document.getElementById('dots');
+            dotsEl.innerHTML = '';
+            products.forEach((_, i) => {
+                const d = document.createElement('div');
+                d.className = 'dot' + (i === current ? ' active' : '');
+                d.addEventListener('click', () => goTo(i));
+                dotsEl.appendChild(d);
+            });
+        }
+
+        function goTo(i) {
+            if (i === current) return;
+            const dir = i > current ? 'left' : 'right';
+            current = i;
+            renderHero(current, dir);
+        }
+
+        function next() { goTo((current + 1) % products.length); }
+
+        function prev() { goTo((current - 1 + products.length) % products.length); }
+
+        /* ============================================================
+           SWIPE HANDLING
+           ============================================================ */
+        const zone = document.getElementById('bottleZone');
+        let startX = 0,
+            startY = 0,
+            dragging = false;
+
+        zone.addEventListener('pointerdown', e => {
+            dragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            zone.setPointerCapture(e.pointerId);
+        });
+        zone.addEventListener('pointerup', e => {
+            if (!dragging) return;
+            dragging = false;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                if (dx < 0) next();
+                else prev();
+            }
+        });
+        zone.addEventListener('pointercancel', () => dragging = false);
+
+        /* ============================================================
+           HEART / WISHLIST with CONFETTI
+           ============================================================ */
+        document.getElementById('heartBtn').addEventListener('click', () => {
+            if (saved.has(current)) {
+                saved.delete(current);
+            } else {
+                saved.add(current);
+                fireConfetti();
+                // extra sparkles
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const rect = document.getElementById('heartBtn').getBoundingClientRect();
+                        createSparkle(
+                            rect.left + rect.width / 2 + (Math.random() - 0.5) * 60,
+                            rect.top + rect.height / 2 + (Math.random() - 0.5) * 60,
+                            ['♥', '✦', '✧', '❤', '💫'][Math.floor(Math.random() * 5)]
+                        );
+                    }, i * 70);
+                }
+            }
+            document.getElementById('heartBtn').classList.toggle('saved', saved.has(current));
+        });
+
+        /* ============================================================
+           GRID VIEW
+           ============================================================ */
+        const gridView = document.getElementById('gridView');
+        const gridCols = document.getElementById('gridCols');
+
+        function buildGrid() {
+            gridCols.innerHTML = '';
+            products.forEach((p, i) => {
+                const item = document.createElement('div');
+                item.className = 'grid-item';
+                item.style.transitionDelay = (i * 45) + 'ms';
+                item.innerHTML = `
+              <div class="thumb"><img src="${p.image}" alt="${p.name}" loading="lazy" draggable="false" /></div>
+              <h3>${p.name}</h3>
+              <p class="g-notes">${p.notes}</p>
+              <p class="g-price">₵${p.price}</p>
+            `;
+                item.addEventListener('click', () => {
+                    current = i;
+                    closeGrid();
+                    setTimeout(() => renderHero(current, null), 200);
+                });
+                gridCols.appendChild(item);
+            });
+        }
+
+        function openGrid() {
+            buildGrid();
+            gridView.classList.add('open');
+            gridIsOpen = true;
+            hideHint();
+        }
+
+        function closeGrid() {
+            gridView.classList.remove('open');
+            gridIsOpen = false;
+        }
+
+        document.getElementById('gridBtn').addEventListener('click', openGrid);
+        document.getElementById('closeBtn').addEventListener('click', closeGrid);
+        document.getElementById('backBtn').addEventListener('click', () => { goTo(0); });
+
+        /* ============================================================
+           HINT
+           ============================================================ */
+        const gridHint = document.getElementById('gridHint');
+        const gridBtnEl = document.getElementById('gridBtn');
+
+        function showHint() {
+            if (gridIsOpen) return;
+            gridHint.classList.add('show');
+            gridBtnEl.classList.add('pulse');
+            setTimeout(hideHint, 3000);
+        }
+
+        function hideHint() {
+            gridHint.classList.remove('show');
+            gridBtnEl.classList.remove('pulse');
+        }
+
+        setTimeout(showHint, 1500);
+        setInterval(showHint, 12000);
+
+        /* ============================================================
+           INIT
+           ============================================================ */
+        renderHero(0, null);
+    </script>
+
+</body>
+</html>
