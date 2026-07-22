@@ -34,6 +34,7 @@
         }
         body {
             min-height: 100vh;
+            min-height: 100dvh;
             background:
                 radial-gradient(600px 500px at 50% 0%, rgba(var(--glow), 0.22), transparent 60%),
                 linear-gradient(160deg, var(--bg-1), #120810 55%, var(--bg-2));
@@ -71,7 +72,8 @@
             position: relative;
             width: min(400px, 100%);
             max-width: 400px;
-            height: min(780px, 95vh);
+            height: min(780px, 92vh);
+            height: min(780px, 92dvh);
             max-height: 780px;
             border-radius: 36px;
             overflow: hidden;
@@ -219,8 +221,9 @@
 
         .ambient {
             position: relative;
-            height: 30%;
-            padding: 60px 24px 0;
+            height: 22%;
+            min-height: 90px;
+            padding: 56px 24px 0;
             flex-shrink: 0;
             overflow: hidden;
         }
@@ -237,7 +240,7 @@
             font-family: 'Fraunces', serif;
             font-style: italic;
             font-weight: 500;
-            font-size: 26px;
+            font-size: 24px;
             line-height: 1.08;
             margin: 0;
             color: var(--ivory);
@@ -248,8 +251,8 @@
             position: absolute;
             right: -18px;
             top: 10px;
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             opacity: 0.14;
             transform: rotate(8deg);
             pointer-events: none;
@@ -265,13 +268,14 @@
             background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dim) 100%);
             border-radius: 30px 30px 0 0;
             margin-top: -20px;
-            padding: 20px 18px 18px;
+            padding: 18px 18px calc(14px + env(safe-area-inset-bottom, 0px));
             display: flex;
             flex-direction: column;
             box-shadow: 0 -16px 30px rgba(0, 0, 0, 0.25);
             color: var(--ink);
             z-index: 5;
             min-height: 0;
+            overflow: hidden;
         }
 
         .card::before,
@@ -312,7 +316,7 @@
         .card-head h2 {
             font-family: 'Fraunces', serif;
             font-weight: 600;
-            font-size: 20px;
+            font-size: 19px;
             line-height: 1.15;
             margin: 0 0 4px;
             letter-spacing: -0.01em;
@@ -358,7 +362,8 @@
 
         /* ----- BOTTLE WITH 3D TILT ----- */
         .bottle-zone {
-            flex: 1;
+            flex: 1 1 auto;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -367,16 +372,17 @@
             cursor: grab;
             user-select: none;
             -webkit-user-select: none;
-            min-height: 0;
             padding: 4px 0;
             perspective: 600px;
+            overflow: hidden;
         }
         .bottle-zone:active {
             cursor: grabbing;
         }
 
         .bottle-wrap {
-            width: 160px;
+            width: 150px;
+            max-width: 40%;
             max-height: 100%;
             transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), opacity 0.35s ease;
             filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.18));
@@ -395,7 +401,7 @@
             display: block;
             border-radius: 6px;
             object-fit: contain;
-            max-height: 180px;
+            max-height: 100%;
             background: transparent;
             pointer-events: auto;
             -webkit-user-drag: none;
@@ -465,7 +471,7 @@
             display: flex;
             gap: 5px;
             justify-content: center;
-            margin: 6px 0 12px;
+            margin: 6px 0 10px;
             flex-shrink: 0;
         }
         .dot {
@@ -488,7 +494,6 @@
             justify-content: space-between;
             gap: 12px;
             flex-shrink: 0;
-            margin-top: auto; /* push to bottom */
         }
 
         .price-tag {
@@ -526,7 +531,7 @@
             font-weight: 600;
         }
         .price-tag .p-number {
-            font-size: 26px;
+            font-size: 24px;
             letter-spacing: -0.02em;
             line-height: 1;
             display: inline-block;
@@ -562,6 +567,7 @@
             box-shadow: 0 8px 16px -6px rgba(21, 92, 57, 0.55);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             white-space: nowrap;
+            flex-shrink: 0;
         }
         .whatsapp-btn:hover {
             transform: translateY(-2px) scale(1.02);
@@ -629,7 +635,7 @@
         .grid-scroll {
             flex: 1;
             overflow-y: auto;
-            padding: 6px 16px 20px;
+            padding: 6px 16px calc(20px + env(safe-area-inset-bottom, 0px));
             -webkit-overflow-scrolling: touch;
         }
         .grid-cols {
@@ -750,30 +756,31 @@
         /* ---------- RESPONSIVE FINE-TUNE ---------- */
         @media (max-width: 400px) {
             .phone {
-                height: 95vh;
-                max-height: 760px;
+                height: min(760px, 92vh);
+                height: min(760px, 92dvh);
                 border-radius: 30px;
             }
             .ambient {
-                padding: 50px 18px 0;
-                height: 28%;
+                padding: 48px 18px 0;
+                height: 20%;
+                min-height: 80px;
             }
             .ambient h1 {
-                font-size: 22px;
+                font-size: 21px;
                 max-width: 160px;
             }
             .watermark {
-                width: 100px;
-                height: 100px;
+                width: 95px;
+                height: 95px;
                 right: -10px;
             }
             .card {
-                padding: 16px 14px 14px;
+                padding: 14px 14px calc(12px + env(safe-area-inset-bottom, 0px));
                 border-radius: 26px 26px 0 0;
                 margin-top: -16px;
             }
             .card-head h2 {
-                font-size: 18px;
+                font-size: 17px;
             }
             .card-head .notes {
                 font-size: 10px;
@@ -781,15 +788,12 @@
             .bottle-wrap {
                 width: 130px;
             }
-            .bottle-wrap img {
-                max-height: 150px;
-            }
             .bottle-glow {
                 width: 150px;
                 height: 150px;
             }
             .price-tag .p-number {
-                font-size: 22px;
+                font-size: 21px;
             }
             .whatsapp-btn {
                 font-size: 11px;
@@ -813,34 +817,35 @@
 
         @media (max-height: 700px) {
             .phone {
-                height: 92vh;
-                max-height: 700px;
+                height: min(700px, 92vh);
+                height: min(700px, 92dvh);
             }
             .ambient {
-                padding: 40px 18px 0;
-                height: 26%;
+                padding: 38px 18px 0;
+                height: 18%;
+                min-height: 70px;
             }
             .ambient h1 {
-                font-size: 20px;
+                font-size: 19px;
             }
             .card {
-                padding: 14px 14px 12px;
+                padding: 12px 14px calc(10px + env(safe-area-inset-bottom, 0px));
                 margin-top: -12px;
             }
             .card-head h2 {
-                font-size: 17px;
+                font-size: 16px;
             }
             .bottle-wrap {
-                width: 120px;
-            }
-            .bottle-wrap img {
-                max-height: 130px;
+                width: 110px;
             }
             .dots {
                 margin: 4px 0 8px;
             }
+            .price-tag {
+                padding: 5px 12px 6px;
+            }
             .price-tag .p-number {
-                font-size: 20px;
+                font-size: 19px;
             }
             .whatsapp-btn {
                 font-size: 10px;
@@ -850,27 +855,28 @@
 
         @media (max-height: 640px) {
             .phone {
-                height: 90vh;
-                max-height: 640px;
+                height: min(640px, 92vh);
+                height: min(640px, 92dvh);
             }
             .ambient {
-                padding: 32px 16px 0;
-                height: 24%;
+                padding: 30px 16px 0;
+                height: 16%;
+                min-height: 60px;
             }
             .ambient h1 {
-                font-size: 18px;
+                font-size: 17px;
             }
             .bottle-wrap {
-                width: 100px;
-            }
-            .bottle-wrap img {
-                max-height: 110px;
+                width: 90px;
             }
             .card-head h2 {
-                font-size: 15px;
+                font-size: 14px;
+            }
+            .price-tag {
+                padding: 4px 10px 5px;
             }
             .price-tag .p-number {
-                font-size: 18px;
+                font-size: 17px;
             }
             .whatsapp-btn {
                 font-size: 9px;
@@ -883,6 +889,12 @@
             .swipe-hint {
                 display: none;
             }
+        }
+
+        @media (max-height: 560px) {
+            .ambient { display: none; }
+            .card { margin-top: 0; border-radius: 0; padding-top: 34px; }
+            .bottle-wrap { width: 80px; }
         }
     </style>
 </head>
