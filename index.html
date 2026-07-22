@@ -72,9 +72,9 @@
             position: relative;
             width: min(400px, 100%);
             max-width: 400px;
-            height: min(720px, 88vh);
-            height: min(720px, 88dvh);
-            max-height: 720px;
+            height: min(680px, 84vh);
+            height: min(680px, 84dvh);
+            max-height: 680px;
             border-radius: 36px;
             overflow: hidden;
             background: linear-gradient(165deg, var(--bg-1), var(--bg-2) 80%);
@@ -267,7 +267,7 @@
             flex: 1;
             background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-dim) 100%);
             border-radius: 30px 30px 0 0;
-            margin-top: -20px;
+            margin-top: 4px;
             padding: 18px 18px calc(14px + env(safe-area-inset-bottom, 0px));
             display: flex;
             flex-direction: column;
@@ -381,8 +381,8 @@
         }
 
         .bottle-wrap {
-            width: 235px;
-            max-width: 68%;
+            width: 255px;
+            max-width: 74%;
             max-height: 100%;
             transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), opacity 0.35s ease;
             filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.18));
@@ -756,8 +756,8 @@
         /* ---------- RESPONSIVE FINE-TUNE ---------- */
         @media (max-width: 400px) {
             .phone {
-                height: min(700px, 88vh);
-                height: min(700px, 88dvh);
+                height: min(660px, 84vh);
+                height: min(660px, 84dvh);
                 border-radius: 30px;
             }
             .ambient {
@@ -777,7 +777,7 @@
             .card {
                 padding: 14px 14px calc(12px + env(safe-area-inset-bottom, 0px));
                 border-radius: 26px 26px 0 0;
-                margin-top: -16px;
+                margin-top: 4px;
             }
             .card-head h2 {
                 font-size: 17px;
@@ -786,7 +786,7 @@
                 font-size: 10px;
             }
             .bottle-wrap {
-                width: 200px;
+                width: 220px;
             }
             .bottle-glow {
                 width: 200px;
@@ -817,8 +817,8 @@
 
         @media (max-height: 700px) {
             .phone {
-                height: min(650px, 88vh);
-                height: min(650px, 88dvh);
+                height: min(610px, 84vh);
+                height: min(610px, 84dvh);
             }
             .ambient {
                 padding: 38px 18px 0;
@@ -830,13 +830,13 @@
             }
             .card {
                 padding: 12px 14px calc(10px + env(safe-area-inset-bottom, 0px));
-                margin-top: -12px;
+                margin-top: 2px;
             }
             .card-head h2 {
                 font-size: 16px;
             }
             .bottle-wrap {
-                width: 170px;
+                width: 190px;
             }
             .dots {
                 margin: 4px 0 8px;
@@ -855,8 +855,8 @@
 
         @media (max-height: 640px) {
             .phone {
-                height: min(600px, 88vh);
-                height: min(600px, 88dvh);
+                height: min(560px, 84vh);
+                height: min(560px, 84dvh);
             }
             .ambient {
                 padding: 30px 16px 0;
@@ -867,7 +867,7 @@
                 font-size: 17px;
             }
             .bottle-wrap {
-                width: 140px;
+                width: 155px;
             }
             .card-head h2 {
                 font-size: 14px;
@@ -894,7 +894,7 @@
         @media (max-height: 560px) {
             .ambient { display: none; }
             .card { margin-top: 0; border-radius: 0; padding-top: 34px; }
-            .bottle-wrap { width: 115px; }
+            .bottle-wrap { width: 130px; }
         }
     </style>
 </head>
