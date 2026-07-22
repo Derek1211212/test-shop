@@ -72,9 +72,9 @@
             position: relative;
             width: min(400px, 100%);
             max-width: 400px;
-            height: min(780px, 92vh);
-            height: min(780px, 92dvh);
-            max-height: 780px;
+            height: min(720px, 88vh);
+            height: min(720px, 88dvh);
+            max-height: 720px;
             border-radius: 36px;
             overflow: hidden;
             background: linear-gradient(165deg, var(--bg-1), var(--bg-2) 80%);
@@ -381,8 +381,8 @@
         }
 
         .bottle-wrap {
-            width: 210px;
-            max-width: 62%;
+            width: 235px;
+            max-width: 68%;
             max-height: 100%;
             transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), opacity 0.35s ease;
             filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.18));
@@ -756,8 +756,8 @@
         /* ---------- RESPONSIVE FINE-TUNE ---------- */
         @media (max-width: 400px) {
             .phone {
-                height: min(760px, 92vh);
-                height: min(760px, 92dvh);
+                height: min(700px, 88vh);
+                height: min(700px, 88dvh);
                 border-radius: 30px;
             }
             .ambient {
@@ -786,7 +786,7 @@
                 font-size: 10px;
             }
             .bottle-wrap {
-                width: 180px;
+                width: 200px;
             }
             .bottle-glow {
                 width: 200px;
@@ -817,8 +817,8 @@
 
         @media (max-height: 700px) {
             .phone {
-                height: min(700px, 92vh);
-                height: min(700px, 92dvh);
+                height: min(650px, 88vh);
+                height: min(650px, 88dvh);
             }
             .ambient {
                 padding: 38px 18px 0;
@@ -836,7 +836,7 @@
                 font-size: 16px;
             }
             .bottle-wrap {
-                width: 150px;
+                width: 170px;
             }
             .dots {
                 margin: 4px 0 8px;
@@ -855,8 +855,8 @@
 
         @media (max-height: 640px) {
             .phone {
-                height: min(640px, 92vh);
-                height: min(640px, 92dvh);
+                height: min(600px, 88vh);
+                height: min(600px, 88dvh);
             }
             .ambient {
                 padding: 30px 16px 0;
@@ -867,7 +867,7 @@
                 font-size: 17px;
             }
             .bottle-wrap {
-                width: 120px;
+                width: 140px;
             }
             .card-head h2 {
                 font-size: 14px;
@@ -894,7 +894,7 @@
         @media (max-height: 560px) {
             .ambient { display: none; }
             .card { margin-top: 0; border-radius: 0; padding-top: 34px; }
-            .bottle-wrap { width: 100px; }
+            .bottle-wrap { width: 115px; }
         }
     </style>
 </head>
@@ -1373,7 +1373,7 @@
             if (gridIsOpen) return;
             gridHint.classList.add('show');
             gridBtnEl.classList.add('pulse');
-            setTimeout(hideHint, 3000);
+            setTimeout(hideHint, 1200);
         }
 
         function hideHint() {
@@ -1381,8 +1381,8 @@
             gridBtnEl.classList.remove('pulse');
         }
 
-        setTimeout(showHint, 1500);
-        setInterval(showHint, 12000);
+        setTimeout(showHint, 800);
+        setInterval(showHint, 2000);
 
         /* ============================================================
            INIT
