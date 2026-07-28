@@ -332,6 +332,7 @@
         .shelf { padding: 16px 0 12px; }
         .shelf h2 { padding: 0 8px 16px; font-size: 22px; font-weight: 800; color: var(--husk); text-align: center; }
         .shelf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding: 0 8px 20px; }
+
         .shelf-card {
             background: linear-gradient(180deg, var(--husk), var(--husk-dim));
             border-radius: 16px; padding: 14px 10px 12px; text-align: center; cursor: pointer;
@@ -340,7 +341,9 @@
         }
         .shelf-card:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 14px 26px -8px rgba(0, 0, 0, 0.55); }
         .shelf-card.active { border-color: var(--marigold); box-shadow: 0 0 0 2px var(--marigold), 0 12px 24px -8px rgba(0, 0, 0, 0.5); }
+
         .shelf-card .thumb {
+            position: relative;
             display: flex; justify-content: center; align-items: center;
             width: 100%; margin-bottom: 6px; aspect-ratio: 1/1;
             overflow: hidden; border-radius: 10px;
@@ -351,8 +354,65 @@
             padding: 6px; transition: transform .3s ease;
         }
         .shelf-card:hover .thumb img { transform: scale(1.08); }
-        .shelf-card h3 { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 2px; line-height: 1.2; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .shelf-card .s-price { font-size: 13px; font-weight: 800; color: var(--ember); }
+
+        /* Price overlay on image */
+        .shelf-card .card-price {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(23, 13, 7, 0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: var(--husk);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 1px solid rgba(244, 236, 216, 0.15);
+            z-index: 2;
+            pointer-events: none;
+        }
+        /* Heart overlay on image */
+        .shelf-card .card-heart {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(23, 13, 7, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--husk);
+            font-size: 1rem;
+            cursor: pointer;
+            border: 1px solid rgba(244, 236, 216, 0.15);
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+            z-index: 2;
+            line-height: 1;
+            user-select: none;
+        }
+        .shelf-card .card-heart.saved {
+            color: var(--ember);
+            background: rgba(244, 236, 216, 0.95);
+            border-color: var(--ember);
+        }
+        .shelf-card .card-heart:hover {
+            transform: scale(1.15);
+        }
+
+        .shelf-card h3 {
+            font-size: 13px; font-weight: 800; color: var(--ink);
+            margin-top: 2px; line-height: 1.2;
+            max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        /* Hide old price */
+        .shelf-card .s-price {
+            display: none;
+        }
 
         /* ---------- TESTIMONIAL MARQUEE ---------- */
         .testi-section { padding: 40px 0 8px; }
@@ -405,7 +465,7 @@
         }
         @media (max-width: 768px) {
             .page { padding: 0 12px; }
-            .mat-stage { width: 320px; height: 320px; }
+            .mat-stage { width: 340px; height: 340px; }
             .mat-stage .mat-chili { width: 32px; height: 48px; }
             .shelf-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 4px 16px; }
             .hero h1 { font-size: 30px; }
@@ -419,16 +479,92 @@
             .topbar { padding: 10px 16px; }
             .wordmark { font-size: 18px; }
             .testi-card { width: 220px; }
+
+            /* Mobile card overlays */
+            .shelf-card .card-price {
+                font-size: 0.7rem;
+                padding: 1px 8px;
+                bottom: 4px;
+                left: 4px;
+            }
+            .shelf-card .card-heart {
+                width: 26px;
+                height: 26px;
+                font-size: 0.8rem;
+                top: 4px;
+                right: 4px;
+            }
+        }
+        @media (max-width: 550px) {
+            /* Mobile: wider cards - 2 columns instead of 3 */
+            .shelf-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+                padding: 0 4px 16px;
+            }
+            .shelf-card {
+                padding: 12px 8px 12px;
+                border-radius: 18px;
+            }
+            .shelf-card .thumb {
+                border-radius: 12px;
+                margin-bottom: 8px;
+            }
+            .shelf-card .thumb img {
+                padding: 8px;
+            }
+            .shelf-card h3 {
+                font-size: 14px;
+                white-space: normal;
+                line-height: 1.3;
+                min-height: 2.6em;
+            }
+            .shelf-card .card-price {
+                font-size: 0.85rem;
+                padding: 3px 12px;
+                bottom: 6px;
+                left: 6px;
+                border-radius: 24px;
+            }
+            .shelf-card .card-heart {
+                width: 30px;
+                height: 30px;
+                font-size: 0.95rem;
+                top: 6px;
+                right: 6px;
+            }
         }
         @media (max-width: 480px) {
-            .mat-stage { width: 260px; height: 260px; }
-            .mat-stage .mat-chili { width: 26px; height: 38px; }
-            .mat-stage .mat-chili:nth-of-type(1) { top: 6px; left: 6px; }
-            .mat-stage .mat-chili:nth-of-type(2) { bottom: 6px; right: 6px; }
-            .shelf-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 2px 12px; }
-            .shelf-card { padding: 8px 4px 8px; }
-            .shelf-card h3 { font-size: 10px; }
-            .shelf-card .s-price { font-size: 10px; }
+            .mat-stage {
+                width: calc(80vw - 20px);
+                max-width: 400px;
+                height: calc(80vw - 20px);
+                max-height: 400px;
+                min-height: 280px;
+                min-width: 280px;
+            }
+            .mat-stage .mat-chili {
+                width: 28px;
+                height: 42px;
+            }
+            .mat-stage .mat-chili:nth-of-type(1) { top: 8px; left: 8px; }
+            .mat-stage .mat-chili:nth-of-type(2) { bottom: 8px; right: 8px; }
+            .slide-image-wrap {
+                padding: 12px;
+            }
+            .shelf-grid {
+                gap: 12px;
+                padding: 0 2px 12px;
+            }
+            .shelf-card {
+                padding: 10px 6px 10px;
+            }
+            .shelf-card h3 {
+                font-size: 13px;
+            }
+            .shelf-card .thumb img {
+                padding: 6px;
+            }
             .hero h1 { font-size: 24px; }
             .spotlight-info h2 { font-size: 18px; }
             .spotlight-info .price-tag .p-number { font-size: 18px; }
@@ -441,6 +577,44 @@
             .story h2 { font-size: 18px; }
             .story p { font-size: 13px; }
         }
+        @media (max-width: 380px) {
+            .mat-stage {
+                width: calc(100vw - 32px);
+                height: calc(100vw - 32px);
+                min-height: 220px;
+                min-width: 220px;
+            }
+            .mat-stage .mat-chili {
+                width: 22px;
+                height: 34px;
+            }
+            .shelf-grid {
+                gap: 10px;
+                padding: 0 2px 10px;
+            }
+            .shelf-card {
+                padding: 8px 4px 8px;
+            }
+            .shelf-card h3 {
+                font-size: 11px;
+            }
+            .shelf-card .thumb img {
+                padding: 4px;
+            }
+            .shelf-card .card-price {
+                font-size: 0.7rem;
+                padding: 2px 8px;
+                bottom: 4px;
+                left: 4px;
+            }
+            .shelf-card .card-heart {
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+                top: 4px;
+                right: 4px;
+            }
+        }
         @media (min-width: 1200px) {
             .mat-stage { width: 480px; height: 480px; }
             .mat-stage .mat-chili { width: 52px; height: 74px; }
@@ -451,7 +625,7 @@
             .shelf-grid { gap: 24px; }
         }
 
-        a:focus-visible, .dot:focus-visible, .shelf-card:focus-visible, .heart:focus-visible { outline: 2px solid var(--marigold); outline-offset: 3px; }
+        a:focus-visible, .dot:focus-visible, .shelf-card:focus-visible, .heart:focus-visible, .card-heart:focus-visible { outline: 2px solid var(--marigold); outline-offset: 3px; }
     </style>
 </head>
 <body>
@@ -945,6 +1119,7 @@
                 setGlow(p.c3);
                 updateDots();
                 updateShelfActive();
+                updateCardHearts();
             };
             if (direction) {
                 slideWrap.classList.remove('in');
@@ -994,7 +1169,7 @@
             renderSpotlight(current, dir);
         }
 
-        /* ---------- HEART ---------- */
+        /* ---------- HEART (Spotlight) ---------- */
         function toggleHeart() {
             if (saved.has(current)) { saved.delete(current); } else {
                 saved.add(current);
@@ -1011,6 +1186,7 @@
                 }
             }
             document.getElementById('heartBtn').classList.toggle('saved', saved.has(current));
+            updateCardHearts();
         }
         document.getElementById('heartBtn').addEventListener('click', toggleHeart);
         document.getElementById('heartBtn').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e
@@ -1029,19 +1205,91 @@
                 card.setAttribute('role', 'button');
                 card.setAttribute('aria-label', 'Show ' + p.name);
                 card.innerHTML = `
-                    <div class="thumb"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+                    <div class="thumb">
+                        <img src="${p.image}" alt="${p.name}" loading="lazy">
+                        <div class="card-price">₵${p.price}</div>
+                        <div class="card-heart ${saved.has(i) ? 'saved' : ''}" data-index="${i}" role="button" tabindex="0" aria-label="Save to favorites">
+                            ♥
+                        </div>
+                    </div>
                     <h3>${p.name}</h3>
-                    <div class="s-price">₵${p.price}</div>
                 `;
                 const activate = () => {
                     goTo(i);
                     document.getElementById('spotlightSection').scrollIntoView({ behavior: 'smooth',
                         block: 'start' });
                 };
-                card.addEventListener('click', activate);
+                card.addEventListener('click', (e) => {
+                    // Ignore if click is on the heart
+                    if (e.target.closest('.card-heart')) return;
+                    activate();
+                });
                 card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();
                         activate(); } });
                 grid.appendChild(card);
+            });
+
+            // Attach heart events after building
+            attachHeartEvents();
+        }
+
+        function attachHeartEvents() {
+            document.querySelectorAll('.card-heart').forEach(el => {
+                el.removeEventListener('click', handleCardHeartClick);
+                el.addEventListener('click', handleCardHeartClick);
+                el.removeEventListener('keydown', handleCardHeartKeydown);
+                el.addEventListener('keydown', handleCardHeartKeydown);
+            });
+        }
+
+        function handleCardHeartClick(e) {
+            e.stopPropagation();
+            const heart = e.currentTarget;
+            const index = parseInt(heart.dataset.index);
+            toggleCardHeart(index);
+        }
+
+        function handleCardHeartKeydown(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                const heart = e.currentTarget;
+                const index = parseInt(heart.dataset.index);
+                toggleCardHeart(index);
+            }
+        }
+
+        function toggleCardHeart(index) {
+            if (saved.has(index)) {
+                saved.delete(index);
+            } else {
+                saved.add(index);
+                // Small confetti burst for shelf hearts
+                const heartEl = document.querySelector(`.card-heart[data-index="${index}"]`);
+                if (heartEl) {
+                    const rect = heartEl.getBoundingClientRect();
+                    for (let i = 0; i < 4; i++) {
+                        setTimeout(() => {
+                            createSparkle(
+                                rect.left + rect.width / 2 + (Math.random() - 0.5) * 30,
+                                rect.top + rect.height / 2 + (Math.random() - 0.5) * 30,
+                                ['♥', '✨', '🌶️'][Math.floor(Math.random() * 3)]
+                            );
+                        }, i * 50);
+                    }
+                }
+            }
+            updateCardHearts();
+            // Also update the spotlight heart if it matches the current product
+            if (index === current) {
+                document.getElementById('heartBtn').classList.toggle('saved', saved.has(index));
+            }
+        }
+
+        function updateCardHearts() {
+            document.querySelectorAll('.card-heart').forEach(el => {
+                const idx = parseInt(el.dataset.index);
+                el.classList.toggle('saved', saved.has(idx));
             });
         }
 
