@@ -222,13 +222,16 @@
         .mat-stage {
             position: relative; width: 420px; height: 420px; flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
-            touch-action: none; user-select: none; -webkit-user-select: none;
+            touch-action: pan-y;
+            user-select: none; -webkit-user-select: none;
             perspective: 800px; border-radius: 24px; overflow: hidden;
             background: radial-gradient(circle at 50% 40%, rgba(var(--glow),.16), rgba(255,255,255,0.04) 70%);
             border: 1px solid rgba(244, 236, 216, 0.08);
             box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6), inset 0 0 60px rgba(var(--glow),.08);
             transition: box-shadow .5s ease, background .5s ease;
+            cursor: grab;
         }
+        .mat-stage:active { cursor: grabbing; }
         .mat-stage .mat-chili { position: absolute; width: 44px; height: 64px; pointer-events: none; opacity: .7; z-index: 3; }
         .mat-stage .mat-chili:nth-of-type(1) { top: 12px; left: 12px; transform: rotate(-20deg); animation: chiliFloat 4.5s ease-in-out infinite; }
         .mat-stage .mat-chili:nth-of-type(2) { bottom: 12px; right: 12px; transform: rotate(25deg); animation: chiliFloat 3.8s ease-in-out infinite reverse; }
@@ -262,6 +265,7 @@
             transition: transform .3s ease;
             background: rgba(255,255,255,0.04);
         }
+        /* No hint animation – just clean transitions */
         .mat-stage:hover .slide-image-wrap img { transform: scale(1.03) rotate(-1deg); }
         .slide-image-wrap.out-left { transform: translateX(-160px) rotate(-6deg) scale(.85); opacity: 0; }
         .slide-image-wrap.out-right { transform: translateX(160px) rotate(6deg) scale(.85); opacity: 0; }
@@ -806,19 +810,96 @@
             }
         }
 
-        /* ---------- 3D TILT ---------- */
+        /* ---------- SWIPE HANDLING ---------- */
         const matStage = document.getElementById('matStage');
         const slideWrap = document.getElementById('slideWrap');
-        matStage.addEventListener('mousemove', e => {
-            const rect = matStage.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5,
-                y = (e.clientY - rect.top) / rect.height - 0.5;
-            slideWrap.style.transform = `perspective(800px) rotateX(${-y*6}deg) rotateY(${x*6}deg) scale(1.02)`;
+
+        let startX = 0,
+            startY = 0,
+            isSwiping = false;
+
+        matStage.addEventListener('pointerdown', (e) => {
+            startX = e.clientX;
+            startY = e.clientY;
+            isSwiping = false;
+            matStage.setPointerCapture(e.pointerId);
+        });
+
+        matStage.addEventListener('pointermove', (e) => {
+            if (!matStage.hasPointerCapture(e.pointerId)) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 15) {
+                isSwiping = true;
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        matStage.addEventListener('pointerup', (e) => {
+            if (!matStage.hasPointerCapture(e.pointerId)) return;
+            matStage.releasePointerCapture(e.pointerId);
+            if (isSwiping) {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 35) {
+                    if (dx < 0) goTo((current + 1) % products.length);
+                    else goTo((current - 1 + products.length) % products.length);
+                }
+                isSwiping = false;
+            }
+        });
+
+        matStage.addEventListener('pointercancel', (e) => {
+            matStage.releasePointerCapture(e.pointerId);
+            isSwiping = false;
+        });
+
+        // 3D tilt effect (desktop)
+        matStage.addEventListener('mousemove', (e) => {
+            if (e.pointerType === 'mouse') {
+                const rect = matStage.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5,
+                    y = (e.clientY - rect.top) / rect.height - 0.5;
+                slideWrap.style.transform = `perspective(800px) rotateX(${-y*6}deg) rotateY(${x*6}deg) scale(1.02)`;
+            }
         });
         matStage.addEventListener('mouseleave', () => {
             slideWrap.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
         });
 
+        /* ---------- AUTOPLAY LOGIC ---------- */
+        let autoplayInterval = null;
+
+        function startAutoplay() {
+            if (autoplayInterval) clearInterval(autoplayInterval);
+            autoplayInterval = setInterval(() => {
+                goTo((current + 1) % products.length);
+            }, 4000);
+        }
+
+        function resetAutoplay() {
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+            }
+            startAutoplay();
+        }
+
+        // Pause autoplay on hover (desktop)
+        matStage.addEventListener('mouseenter', () => {
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+            }
+        });
+
+        matStage.addEventListener('mouseleave', () => {
+            if (!autoplayInterval) {
+                startAutoplay();
+            }
+        });
+
+        /* ---------- SPOTLIGHT RENDER ---------- */
         function animatePrice(v) {
             const el = document.getElementById('pPrice');
             el.textContent = v;
@@ -879,7 +960,9 @@
                 d.tabIndex = 0;
                 d.setAttribute('role', 'button');
                 d.setAttribute('aria-label', 'Show ' + products[i].name);
-                d.addEventListener('click', () => goTo(i));
+                d.addEventListener('click', () => {
+                    goTo(i);
+                });
                 d.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();
                         goTo(i); } });
                 el.appendChild(d);
@@ -888,30 +971,11 @@
 
         function goTo(i) {
             if (i === current) return;
+            resetAutoplay(); // Reset timer on manual slide change
             const dir = i > current ? 'left' : 'right';
             current = i;
             renderSpotlight(current, dir);
         }
-
-        /* ---------- SWIPE ---------- */
-        let startX = 0,
-            startY = 0,
-            dragging = false;
-        matStage.addEventListener('pointerdown', e => { dragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            matStage.setPointerCapture(e.pointerId); });
-        matStage.addEventListener('pointerup', e => {
-            if (!dragging) return;
-            dragging = false;
-            const dx = e.clientX - startX,
-                dy = e.clientY - startY;
-            if (Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy)) {
-                if (dx < 0) goTo((current + 1) % products.length);
-                else goTo((current - 1 + products.length) % products.length);
-            }
-        });
-        matStage.addEventListener('pointercancel', () => dragging = false);
 
         /* ---------- HEART ---------- */
         function toggleHeart() {
@@ -991,6 +1055,7 @@
         /* ---------- INIT ---------- */
         buildShelf();
         renderSpotlight(0, null);
+        startAutoplay();
 
         /* ---------- INTRO GRIND-IN ---------- */
         window.addEventListener('load', () => {
