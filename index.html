@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>Vesperine — Fragrance Collection</title>
+    <title>Shai — Shito Collection</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-1: #170b12;
-            --bg-2: #2c1220;
-            --ivory: #f3e9dc;
-            --ivory-dim: #e7d9c6;
-            --ink: #251a1e;
-            --muted: #8a6274;
-            --gold: #b8935a;
-            --gold-soft: #d8c19a;
+            --bg-1: #1c0f08;
+            --bg-2: #3a1509;
+            --ivory: #f6ecd9;
+            --ivory-dim: #ecdcc0;
+            --ink: #2a170d;
+            --muted: #8a5a3f;
+            --chili: #d14b2e;
+            --gold: #e2a53a;
+            --gold-soft: #f0c877;
             --whatsapp: #1f7a4d;
             --whatsapp-dark: #155c39;
-            --glow: 190, 140, 80;
+            --glow: 209, 75, 46;
         }
 
         * {
@@ -36,8 +37,8 @@
             min-height: 100vh;
             min-height: 100dvh;
             background:
-                radial-gradient(600px 500px at 50% 0%, rgba(var(--glow), 0.22), transparent 60%),
-                linear-gradient(160deg, var(--bg-1), #120810 55%, var(--bg-2));
+                radial-gradient(600px 500px at 50% 0%, rgba(var(--glow), 0.24), transparent 60%),
+                linear-gradient(160deg, var(--bg-1), #150b06 55%, var(--bg-2));
             background-attachment: fixed;
             font-family: 'Manrope', sans-serif;
             color: var(--ivory);
@@ -57,7 +58,7 @@
             z-index: 0;
         }
 
-        /* ===== PARTICLES CANVAS ===== */
+        /* ===== EMBER / SPICE PARTICLES CANVAS ===== */
         #particlesCanvas {
             position: fixed;
             top: 0;
@@ -128,13 +129,13 @@
         }
         @keyframes pulseRing {
             0% {
-                box-shadow: 0 0 0 0 rgba(216, 193, 154, 0.65);
+                box-shadow: 0 0 0 0 rgba(240, 200, 119, 0.65);
             }
             70% {
-                box-shadow: 0 0 0 14px rgba(216, 193, 154, 0);
+                box-shadow: 0 0 0 14px rgba(240, 200, 119, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(216, 193, 154, 0);
+                box-shadow: 0 0 0 0 rgba(240, 200, 119, 0);
             }
         }
 
@@ -146,7 +147,7 @@
             position: absolute;
             top: 46px;
             right: 0;
-            background: rgba(20, 12, 16, 0.94);
+            background: rgba(28, 15, 8, 0.94);
             color: #fff;
             font-size: 10px;
             font-weight: 700;
@@ -168,7 +169,7 @@
             right: 12px;
             width: 8px;
             height: 8px;
-            background: rgba(20, 12, 16, 0.94);
+            background: rgba(28, 15, 8, 0.94);
             transform: rotate(45deg);
         }
         .grid-hint.show {
@@ -180,7 +181,7 @@
             position: absolute;
             top: 46px;
             right: 0;
-            background: rgba(20, 12, 16, 0.94);
+            background: rgba(28, 15, 8, 0.94);
             color: #fff;
             font-size: 10px;
             font-weight: 700;
@@ -202,7 +203,7 @@
             right: 12px;
             width: 8px;
             height: 8px;
-            background: rgba(20, 12, 16, 0.94);
+            background: rgba(28, 15, 8, 0.94);
             transform: rotate(45deg);
         }
         .icon-wrap:hover .tooltip-hover {
@@ -237,28 +238,31 @@
             margin: 0 0 4px;
         }
         .ambient h1 {
-            font-family: 'Fraunces', serif;
-            font-style: italic;
-            font-weight: 500;
-            font-size: 24px;
-            line-height: 1.08;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 25px;
+            line-height: 1.06;
+            letter-spacing: -0.01em;
             margin: 0;
             color: var(--ivory);
-            max-width: 200px;
+            max-width: 210px;
         }
 
         .watermark {
             position: absolute;
-            right: -18px;
-            top: 10px;
-            width: 110px;
-            height: 110px;
-            opacity: 0.14;
+            right: -22px;
+            top: 4px;
+            width: 120px;
+            height: 190px;
+            opacity: 0.12;
             transform: rotate(8deg);
             pointer-events: none;
             transition: opacity 0.6s ease;
-            object-fit: contain;
-            background: transparent;
+        }
+        .watermark svg {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         /* ---------- PRODUCT CARD ---------- */
@@ -298,7 +302,7 @@
         .card::after {
             top: -14px;
             width: 78%;
-            background: #ddccb2;
+            background: #ddc7a0;
             transform: translateX(-50%) rotate(2deg) scale(0.94);
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.14);
         }
@@ -314,9 +318,9 @@
             min-width: 0;
         }
         .card-head h2 {
-            font-family: 'Fraunces', serif;
-            font-weight: 600;
-            font-size: 19px;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
             line-height: 1.15;
             margin: 0 0 4px;
             letter-spacing: -0.01em;
@@ -326,9 +330,32 @@
             font-size: 11px;
             letter-spacing: 0.03em;
             color: var(--muted);
-            margin: 0;
+            margin: 0 0 5px;
             font-weight: 600;
             text-transform: uppercase;
+        }
+        .heat {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+        }
+        .heat .chili-icon {
+            font-size: 11px;
+            filter: grayscale(1);
+            opacity: 0.28;
+            line-height: 1;
+        }
+        .heat .chili-icon.lit {
+            filter: none;
+            opacity: 1;
+        }
+        .heat .heat-label {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--chili);
+            margin-left: 2px;
         }
 
         .heart {
@@ -356,12 +383,12 @@
             transition: fill 0.2s ease, stroke 0.2s ease;
         }
         .heart.saved svg {
-            fill: #b23b52;
-            stroke: #b23b52;
+            fill: var(--chili);
+            stroke: var(--chili);
         }
 
-        /* ----- BOTTLE WITH 3D TILT ----- */
-        .bottle-zone {
+        /* ----- JAR WITH 3D TILT ----- */
+        .jar-zone {
             flex: 1 1 auto;
             min-height: 60px;
             display: flex;
@@ -376,69 +403,67 @@
             perspective: 600px;
             overflow: hidden;
         }
-        .bottle-zone:active {
+        .jar-zone:active {
             cursor: grabbing;
         }
 
-        .bottle-wrap {
-            width: 255px;
-            max-width: 74%;
+        .jar-wrap {
+            width: 165px;
+            max-width: 50%;
             max-height: 100%;
             transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), opacity 0.35s ease;
-            filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.18));
+            filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.22));
             display: flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
             pointer-events: auto;
             transform-style: preserve-3d;
             will-change: transform;
-            transition: transform 0.1s ease-out;
         }
-        .bottle-wrap img {
+        .jar-wrap svg {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 6px;
-            object-fit: contain;
             max-height: 100%;
-            background: transparent;
-            pointer-events: auto;
-            -webkit-user-drag: none;
-            user-drag: none;
-            touch-action: none;
-            filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.3));
-            transition: filter 0.3s ease;
         }
-        .bottle-wrap:hover img {
-            filter: drop-shadow(0 4px 24px rgba(var(--glow), 0.4));
+        .jar-wrap:hover svg {
+            filter: drop-shadow(0 4px 22px rgba(var(--glow), 0.45));
         }
 
-        .bottle-wrap.out-left {
+        .jar-wrap .drip {
+            animation: dripPulse 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+        @keyframes dripPulse {
+            0%, 100% { opacity: 0.65; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.05); }
+        }
+
+        .jar-wrap.out-left {
             transform: translateX(-120px) rotate(-8deg) scale(0.85);
             opacity: 0;
         }
-        .bottle-wrap.out-right {
+        .jar-wrap.out-right {
             transform: translateX(120px) rotate(8deg) scale(0.85);
             opacity: 0;
         }
-        .bottle-wrap.in {
+        .jar-wrap.in {
             transform: translateX(0) rotate(0) scale(1);
             opacity: 1;
         }
 
-        .bottle-glow {
+        .jar-glow {
             position: absolute;
-            width: 180px;
-            height: 180px;
+            width: 190px;
+            height: 190px;
             border-radius: 50%;
             pointer-events: none;
-            background: radial-gradient(circle, rgba(var(--glow), 0.12) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(var(--glow), 0.14) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.6s ease;
             z-index: 0;
         }
-        .bottle-zone:hover .bottle-glow {
+        .jar-zone:hover .jar-glow {
             opacity: 1;
         }
 
@@ -503,7 +528,7 @@
             padding: 6px 14px 7px;
             border-radius: 12px;
             background: #fff;
-            border: 1px solid rgba(184, 147, 90, 0.35);
+            border: 1px solid rgba(226, 165, 58, 0.4);
             transition: transform 0.3s ease;
         }
         .price-tag:hover {
@@ -521,7 +546,7 @@
             display: flex;
             align-items: baseline;
             gap: 2px;
-            font-family: 'Fraunces', serif;
+            font-family: 'Bricolage Grotesque', sans-serif;
             font-weight: 700;
             color: var(--ink);
         }
@@ -603,12 +628,12 @@
         }
 
         .grid-view .icon-btn {
-            background: rgba(37, 26, 30, 0.06);
-            border: 1px solid rgba(37, 26, 30, 0.14);
+            background: rgba(42, 23, 13, 0.06);
+            border: 1px solid rgba(42, 23, 13, 0.14);
             color: var(--ink);
         }
         .grid-view .icon-btn:hover {
-            background: rgba(37, 26, 30, 0.12);
+            background: rgba(42, 23, 13, 0.12);
         }
 
         .grid-header {
@@ -624,9 +649,8 @@
             margin: 0 0 4px;
         }
         .grid-header h2 {
-            font-family: 'Fraunces', serif;
-            font-style: italic;
-            font-weight: 500;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
             font-size: 22px;
             margin: 0;
             color: var(--ink);
@@ -646,7 +670,7 @@
 
         .grid-item {
             background: linear-gradient(180deg, var(--ivory), var(--ivory-dim));
-            border: 1px solid rgba(37, 26, 30, 0.08);
+            border: 1px solid rgba(42, 23, 13, 0.08);
             border-radius: 18px;
             padding: 12px 10px 10px;
             cursor: pointer;
@@ -654,14 +678,14 @@
             opacity: 0;
             transform: translateY(14px) scale(0.96);
             transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.2s ease;
-            box-shadow: 0 6px 14px rgba(37, 26, 30, 0.10);
+            box-shadow: 0 6px 14px rgba(42, 23, 13, 0.10);
         }
         .grid-view.open .grid-item {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
         .grid-item:hover {
-            box-shadow: 0 10px 20px rgba(37, 26, 30, 0.16);
+            box-shadow: 0 10px 20px rgba(42, 23, 13, 0.16);
             transform: translateY(-2px) scale(1.02);
         }
         .grid-item:active {
@@ -674,21 +698,16 @@
             margin-bottom: 6px;
             min-height: 70px;
             align-items: center;
-            background: transparent;
         }
-        .grid-item .thumb img {
-            width: 88px;
+        .grid-item .thumb svg {
+            width: 62px;
             height: auto;
-            max-height: 105px;
-            object-fit: contain;
             filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.15));
-            border-radius: 4px;
-            background: transparent;
         }
         .grid-item h3 {
-            font-family: 'Fraunces', serif;
-            font-size: 12px;
-            font-weight: 600;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 12.5px;
+            font-weight: 800;
             margin: 0 0 2px;
             line-height: 1.2;
         }
@@ -698,7 +717,10 @@
             text-transform: uppercase;
             color: var(--muted);
             font-weight: 700;
-            margin: 0 0 6px;
+            margin: 0 0 4px;
+        }
+        .grid-item .g-heat {
+            margin-bottom: 6px;
         }
         .grid-item .g-price {
             font-family: 'Manrope', sans-serif;
@@ -766,13 +788,13 @@
                 min-height: 80px;
             }
             .ambient h1 {
-                font-size: 21px;
-                max-width: 160px;
+                font-size: 22px;
+                max-width: 170px;
             }
             .watermark {
-                width: 95px;
-                height: 95px;
-                right: -10px;
+                width: 100px;
+                height: 160px;
+                right: -14px;
             }
             .card {
                 padding: 14px 14px calc(12px + env(safe-area-inset-bottom, 0px));
@@ -785,12 +807,12 @@
             .card-head .notes {
                 font-size: 10px;
             }
-            .bottle-wrap {
-                width: 220px;
+            .jar-wrap {
+                width: 140px;
             }
-            .bottle-glow {
-                width: 200px;
-                height: 200px;
+            .jar-glow {
+                width: 210px;
+                height: 210px;
             }
             .price-tag .p-number {
                 font-size: 21px;
@@ -803,9 +825,8 @@
                 width: 14px;
                 height: 14px;
             }
-            .grid-item .thumb img {
-                width: 54px;
-                max-height: 70px;
+            .grid-item .thumb svg {
+                width: 48px;
             }
             .grid-item h3 {
                 font-size: 11px;
@@ -826,7 +847,7 @@
                 min-height: 70px;
             }
             .ambient h1 {
-                font-size: 19px;
+                font-size: 20px;
             }
             .card {
                 padding: 12px 14px calc(10px + env(safe-area-inset-bottom, 0px));
@@ -835,8 +856,8 @@
             .card-head h2 {
                 font-size: 16px;
             }
-            .bottle-wrap {
-                width: 190px;
+            .jar-wrap {
+                width: 120px;
             }
             .dots {
                 margin: 4px 0 8px;
@@ -864,10 +885,10 @@
                 min-height: 60px;
             }
             .ambient h1 {
-                font-size: 17px;
+                font-size: 18px;
             }
-            .bottle-wrap {
-                width: 155px;
+            .jar-wrap {
+                width: 100px;
             }
             .card-head h2 {
                 font-size: 14px;
@@ -894,13 +915,13 @@
         @media (max-height: 560px) {
             .ambient { display: none; }
             .card { margin-top: 0; border-radius: 0; padding-top: 34px; }
-            .bottle-wrap { width: 130px; }
+            .jar-wrap { width: 90px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== FLOATING PARTICLES ===== -->
+    <!-- ===== FLOATING EMBERS & SPICE FLECKS ===== -->
     <canvas id="particlesCanvas"></canvas>
 
     <!-- ===== CONFETTI CONTAINER ===== -->
@@ -916,18 +937,18 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                 </button>
                 <div class="icon-wrap">
-                    <button class="icon-btn" id="gridBtn" aria-label="Show all fragrances" title="Show all">
+                    <button class="icon-btn" id="gridBtn" aria-label="Show all flavors" title="Show all">
                         <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="7" cy="7" r="2"></circle><circle cx="17" cy="7" r="2"></circle><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
                     </button>
-                    <div class="tooltip-hover">Show all fragrances</div>
-                    <div class="grid-hint" id="gridHint">Tap to see all fragrances →</div>
+                    <div class="tooltip-hover">Show all flavors</div>
+                    <div class="grid-hint" id="gridHint">Tap to see every flavor →</div>
                 </div>
             </div>
 
             <div class="ambient">
-                <img class="watermark" id="watermark" src="" alt="" />
-                <p class="eyebrow">Vesperine Parfums</p>
-                <h1>Own Every,<br />Room.</h1>
+                <div class="watermark" id="watermark"></div>
+                <p class="eyebrow">Shai Shito Co.</p>
+                <h1>Heat You Can,<br />Taste.</h1>
             </div>
 
             <div class="card">
@@ -935,18 +956,17 @@
                     <div class="titles">
                         <h2 id="pName">—</h2>
                         <p class="notes" id="pNotes">—</p>
+                        <div class="heat" id="pHeat"></div>
                     </div>
-                    <div class="heart" id="heartBtn" aria-label="Save to wishlist">
+                    <div class="heart" id="heartBtn" aria-label="Save to favorites">
                         <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.1C.5 8.2 2.3 4.8 5.7 4.2c2-.3 3.9.6 5 2.2 1.1-1.6 3-2.5 5-2.2 3.4.6 5.2 4 3.7 7.7C19.5 16.4 12 21 12 21z"/></svg>
                     </div>
                 </div>
 
-                <div class="bottle-zone" id="bottleZone">
-                    <div class="bottle-glow" id="bottleGlow"></div>
-                    <div class="bottle-wrap in" id="bottleWrap">
-                        <img id="bottleImg" src="" alt="Perfume bottle" draggable="false" />
-                    </div>
-                    <div class="swipe-hint">← swipe to browse →</div>
+                <div class="jar-zone" id="jarZone">
+                    <div class="jar-glow" id="jarGlow"></div>
+                    <div class="jar-wrap in" id="jarWrap"></div>
+                    <div class="swipe-hint">← swipe for more heat →</div>
                 </div>
 
                 <div class="dots" id="dots"></div>
@@ -973,8 +993,8 @@
                 <div style="width:38px"></div>
             </div>
             <div class="grid-header">
-                <p class="eyebrow">The Collection</p>
-                <h2>All fragrances</h2>
+                <p class="eyebrow">The Menu</p>
+                <h2>Every Jar.</h2>
             </div>
             <div class="grid-scroll">
                 <div class="grid-cols" id="gridCols"></div>
@@ -989,55 +1009,63 @@
            ============================================================ */
         const WHATSAPP_NUMBER = "15550100100";
 
+        // c1 = cap / oil-sheen gold, c2 = sauce body color, c3 = flecks (crayfish/pepper bits)
         const products = [{
-            name: "Ember Oud",
-            notes: "Oud · Amber · Cardamom",
-            price: 128,
-            c1: "#e2a44d",
-            c2: "#7a3d10",
-            image: "pfs1.png"
+            name: "Original Shito",
+            notes: "Dried Shrimp · Ginger · Chili",
+            price: 45,
+            heat: 2,
+            c1: "#e2a53a",
+            c2: "#3a1a10",
+            c3: "#d14b2e"
         }, {
-            name: "Black Fig",
-            notes: "Fig · Cassis · Cedar",
-            price: 118,
-            c1: "#8d5c86",
-            c2: "#3c1f3f",
-            image: "pf2.png"
+            name: "Crayfish Gold",
+            notes: "Crayfish · Garlic · Palm Oil",
+            price: 65,
+            heat: 2,
+            c1: "#d8b34a",
+            c2: "#4a2410",
+            c3: "#e2a53a"
         }, {
-            name: "Salt Bloom",
-            notes: "Iris · Sea Salt · Musk",
-            price: 132,
-            c1: "#a9d6c9",
-            c2: "#3f6e63",
-            image: "pf3.webp"
+            name: "Fire Bomb Shito",
+            notes: "Scotch Bonnet · Ginger · Garlic",
+            price: 55,
+            heat: 3,
+            c1: "#e2622a",
+            c2: "#5a1408",
+            c3: "#ff6b35"
         }, {
-            name: "Smoked Vetiver",
-            notes: "Vetiver · Leather · Moss",
-            price: 145,
-            c1: "#94a35a",
-            c2: "#3a3f1c",
-            image: "pf4.webp"
+            name: "Smoked Herring",
+            notes: "Smoked Fish · Onion · Chili",
+            price: 60,
+            heat: 2,
+            c1: "#b98046",
+            c2: "#2e1710",
+            c3: "#8a5a3f"
         }, {
-            name: "Velvet Tobacco",
-            notes: "Tobacco · Vanilla · Amber",
-            price: 138,
-            c1: "#d68b52",
-            c2: "#5c2e14",
-            image: "pfsss.webp"
+            name: "Garden Egg Shito",
+            notes: "Garden Egg · Tomato · Pepper",
+            price: 48,
+            heat: 1,
+            c1: "#8fae5a",
+            c2: "#3a2c10",
+            c3: "#c9d17a"
         }, {
-            name: "Midnight Neroli",
-            notes: "Neroli · Cedar · Bergamot",
-            price: 124,
-            c1: "#7a8fc9",
-            c2: "#232a5e",
-            image: "pfss.webp"
+            name: "Shrimp & Anchovy",
+            notes: "Shrimp · Anchovy · Chili Oil",
+            price: 58,
+            heat: 2,
+            c1: "#cf8a3a",
+            c2: "#40190c",
+            c3: "#e2a53a"
         }, {
-            name: "Rose Ash",
-            notes: "Rose · Incense · Suede",
-            price: 130,
-            c1: "#c97e8d",
-            c2: "#4a1e28",
-            image: "pf2.png"
+            name: "Green Pepper Shito",
+            notes: "Green Chili · Ginger · Lime",
+            price: 50,
+            heat: 2,
+            c1: "#9db860",
+            c2: "#233a15",
+            c3: "#c7e07a"
         }, ];
 
         let current = 0;
@@ -1045,12 +1073,53 @@
         let gridIsOpen = false;
 
         /* ============================================================
-           PARTICLES (floating mist)
+           JAR SVG GENERATOR
+           ============================================================ */
+        function jarSVG(p) {
+            return `
+            <svg viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg" class="jar-svg">
+                <path d="M55,90 Q55,70 75,65 L125,65 Q145,70 145,90 L150,290 Q150,310 130,312 L70,312 Q50,310 50,290 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+                <path d="M58,118 L142,118 L148,290 Q148,308 130,310 L70,310 Q52,308 52,290 Z" fill="${p.c2}"/>
+                <ellipse cx="100" cy="120" rx="44" ry="7" fill="${p.c1}" opacity="0.88"/>
+                <circle cx="80" cy="150" r="3" fill="${p.c3}" opacity="0.8"/>
+                <circle cx="118" cy="175" r="2.5" fill="${p.c3}" opacity="0.7"/>
+                <circle cx="90" cy="200" r="3" fill="${p.c1}" opacity="0.5"/>
+                <circle cx="70" cy="230" r="2.5" fill="${p.c3}" opacity="0.7"/>
+                <circle cx="128" cy="288" r="2.5" fill="${p.c3}" opacity="0.6"/>
+                <circle cx="80" cy="295" r="2" fill="${p.c1}" opacity="0.5"/>
+                <path d="M62,100 Q60,180 64,290" stroke="rgba(255,255,255,0.5)" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.5"/>
+                <rect x="60" y="40" width="80" height="35" rx="8" fill="${p.c1}"/>
+                <rect x="60" y="40" width="80" height="10" rx="5" fill="rgba(255,255,255,0.25)"/>
+                <line x1="70" y1="50" x2="70" y2="70" stroke="rgba(0,0,0,0.15)" stroke-width="2"/>
+                <line x1="85" y1="48" x2="85" y2="73" stroke="rgba(0,0,0,0.15)" stroke-width="2"/>
+                <line x1="100" y1="47" x2="100" y2="74" stroke="rgba(0,0,0,0.12)" stroke-width="2"/>
+                <line x1="115" y1="48" x2="115" y2="73" stroke="rgba(0,0,0,0.15)" stroke-width="2"/>
+                <line x1="130" y1="50" x2="130" y2="70" stroke="rgba(0,0,0,0.15)" stroke-width="2"/>
+                <rect x="70" y="70" width="60" height="18" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.3)"/>
+                <rect x="56" y="216" width="88" height="56" rx="8" fill="#f6ecd9" opacity="0.96"/>
+                <text x="100" y="240" text-anchor="middle" font-family="'Bricolage Grotesque',sans-serif" font-weight="800" font-size="16" fill="#2a170d">SHAI</text>
+                <text x="100" y="256" text-anchor="middle" font-family="'Manrope',sans-serif" font-weight="700" font-size="7" letter-spacing="1.5" fill="#8a5a3f">SHITO CO.</text>
+                <path class="drip" d="M133,72 Q141,112 132,150 Q127,166 136,178" stroke="${p.c1}" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.9"/>
+            </svg>`;
+        }
+
+        function heatHTML(level) {
+            let out = '';
+            for (let i = 1; i <= 3; i++) {
+                out += `<span class="chili-icon${i <= level ? ' lit' : ''}">🌶️</span>`;
+            }
+            const labels = { 1: 'Mild', 2: 'Hot', 3: 'Very Hot' };
+            out += `<span class="heat-label">${labels[level] || ''}</span>`;
+            return out;
+        }
+
+        /* ============================================================
+           EMBERS & SPICE FLECKS (rising particles)
            ============================================================ */
         const canvas = document.getElementById('particlesCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const particleCount = 35;
+        const particleCount = 32;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -1063,29 +1132,40 @@
             constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1.5;
-                this.speedX = (Math.random() - 0.5) * 0.2;
-                this.speedY = (Math.random() - 0.5) * 0.2 - 0.1;
-                this.opacity = Math.random() * 0.2 + 0.04;
-                this.life = Math.random() * 150 + 80;
-                this.maxLife = this.life;
+                this.y = canvas.height + Math.random() * 100;
+                this.type = Math.random() > 0.6 ? 'flake' : 'ember';
+                this.size = this.type === 'flake' ? (Math.random() * 3 + 2) : (Math.random() * 2.5 + 1);
+                this.speedX = (Math.random() - 0.5) * 0.25;
+                this.speedY = -(Math.random() * 0.35 + 0.15);
+                this.opacity = Math.random() * 0.25 + 0.06;
+                this.rotation = Math.random() * Math.PI;
+                this.life = Math.random() * 200 + 120;
             }
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
+                this.rotation += 0.01;
                 this.life--;
-                if (this.life < 0 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                if (this.life < 0 || this.y < -20) {
                     this.reset();
                 }
                 const fade = Math.min(1, this.life / 40);
                 this.currentOpacity = this.opacity * fade;
             }
             draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 220, 200, ${this.currentOpacity})`;
-                ctx.fill();
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                if (this.type === 'flake') {
+                    ctx.fillStyle = `rgba(209, 75, 46, ${this.currentOpacity})`;
+                    ctx.fillRect(-this.size / 2, -this.size * 1.4, this.size, this.size * 2.6);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(226, 165, 58, ${this.currentOpacity})`;
+                    ctx.fill();
+                }
+                ctx.restore();
             }
         }
 
@@ -1116,14 +1196,13 @@
             el.style.top = y + 'px';
             el.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
             el.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
-            el.style.color = ['#ffd700', '#ff6b6b', '#ff9f43', '#f368e0', '#54a0ff', '#5f27cd', '#ff9ff3'][Math.floor(Math
-            .random() * 7)];
+            el.style.color = ['#e2a53a', '#d14b2e', '#ff6b35', '#f0c877', '#c1392b'][Math.floor(Math.random() * 5)];
             document.body.appendChild(el);
             setTimeout(() => el.remove(), 800);
         }
 
         document.addEventListener('click', (e) => {
-            if (Math.random() > 0.5) createSparkle(e.clientX, e.clientY);
+            if (Math.random() > 0.5) createSparkle(e.clientX, e.clientY, ['✦', '🌶️', '·'][Math.floor(Math.random() * 3)]);
         });
         document.addEventListener('mousemove', (e) => {
             if (Math.random() > 0.93) createSparkle(e.clientX, e.clientY, '·');
@@ -1134,7 +1213,7 @@
            ============================================================ */
         function fireConfetti() {
             const container = document.getElementById('confettiContainer');
-            const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6fb7', '#a66cff', '#ff9f43', '#00d2d3'];
+            const colors = ['#d14b2e', '#e2a53a', '#ff6b35', '#c1392b', '#8a5a3f', '#f6ecd9', '#f0c877'];
             for (let i = 0; i < 30; i++) {
                 const piece = document.createElement('div');
                 piece.className = 'confetti-piece';
@@ -1157,25 +1236,25 @@
         /* ============================================================
            3D TILT
            ============================================================ */
-        const bottleZone = document.getElementById('bottleZone');
-        const bottleWrap = document.getElementById('bottleWrap');
+        const jarZone = document.getElementById('jarZone');
+        const jarWrap = document.getElementById('jarWrap');
         let tiltActive = true;
 
-        bottleZone.addEventListener('mousemove', (e) => {
+        jarZone.addEventListener('mousemove', (e) => {
             if (!tiltActive) return;
-            const rect = bottleZone.getBoundingClientRect();
+            const rect = jarZone.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
             const rotateX = -y * 10;
             const rotateY = x * 10;
-            bottleWrap.style.transform =
+            jarWrap.style.transform =
                 `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
         });
-        bottleZone.addEventListener('mouseleave', () => {
-            bottleWrap.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
+        jarZone.addEventListener('mouseleave', () => {
+            jarWrap.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
         });
-        bottleZone.addEventListener('touchstart', () => { tiltActive = false; });
-        bottleZone.addEventListener('touchend', () => { tiltActive = true; });
+        jarZone.addEventListener('touchstart', () => { tiltActive = false; });
+        jarZone.addEventListener('touchend', () => { tiltActive = true; });
 
         /* ============================================================
            PRICE ANIMATION
@@ -1193,23 +1272,20 @@
            ============================================================ */
         function renderHero(index, direction) {
             const p = products[index];
-            const wrap = document.getElementById('bottleWrap');
-            const img = document.getElementById('bottleImg');
+            const wrap = document.getElementById('jarWrap');
             const wm = document.getElementById('watermark');
-            const glow = document.getElementById('bottleGlow');
+            const glow = document.getElementById('jarGlow');
 
             const doSwap = () => {
-                img.src = p.image;
-                img.alt = p.name;
+                wrap.innerHTML = jarSVG(p);
+                wm.innerHTML = jarSVG(p);
                 document.getElementById('pName').textContent = p.name;
                 document.getElementById('pNotes').textContent = p.notes;
+                document.getElementById('pHeat').innerHTML = heatHTML(p.heat);
                 animatePrice(p.price);
                 document.getElementById('waLabel').textContent = 'Order';
                 const msg = encodeURIComponent(`Hi! I'd like to order ${p.name} (₵${p.price}). Is it available?`);
                 document.getElementById('waBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-
-                wm.src = p.image;
-                wm.alt = p.name;
 
                 document.getElementById('heartBtn').classList.toggle('saved', saved.has(index));
 
@@ -1234,7 +1310,7 @@
                         createSparkle(
                             rect.left + rect.width / 2 + (Math.random() - 0.5) * 80,
                             rect.top + rect.height / 2 + (Math.random() - 0.5) * 80,
-                            '✨'
+                            '🌶️'
                         );
                     }, i * 70);
                 }
@@ -1274,7 +1350,7 @@
         /* ============================================================
            SWIPE
            ============================================================ */
-        const zone = document.getElementById('bottleZone');
+        const zone = document.getElementById('jarZone');
         let startX = 0,
             startY = 0,
             dragging = false;
@@ -1312,7 +1388,7 @@
                         createSparkle(
                             rect.left + rect.width / 2 + (Math.random() - 0.5) * 50,
                             rect.top + rect.height / 2 + (Math.random() - 0.5) * 50,
-                            ['♥', '✦', '✧', '❤', '💫'][Math.floor(Math.random() * 5)]
+                            ['♥', '🌶️', '🔥', '✧', '❤'][Math.floor(Math.random() * 5)]
                         );
                     }, i * 60);
                 }
@@ -1333,9 +1409,10 @@
                 item.className = 'grid-item';
                 item.style.transitionDelay = (i * 40) + 'ms';
                 item.innerHTML = `
-              <div class="thumb"><img src="${p.image}" alt="${p.name}" loading="lazy" draggable="false" /></div>
+              <div class="thumb">${jarSVG(p)}</div>
               <h3>${p.name}</h3>
               <p class="g-notes">${p.notes}</p>
+              <div class="heat g-heat">${heatHTML(p.heat)}</div>
               <p class="g-price">₵${p.price}</p>
             `;
                 item.addEventListener('click', () => {
