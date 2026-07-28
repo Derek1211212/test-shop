@@ -681,7 +681,6 @@
             </h1>
             <svg class="underline" width="160" height="16" viewBox="0 0 160 16"><path d="M2,8 Q32,1 62,8 T102,8 T142,7" stroke="var(--marigold)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
             <p class="sub">Crafted with tradition. Made for every table. Authentic Ghanaian shito with unforgettable flavor.</p>
-
         </section>
 
         <!-- SPOTLIGHT -->
@@ -1078,16 +1077,19 @@
             el.classList.add('pop');
         }
 
-        // Get current page URL for sharing
+        // Get current page URL for sharing with product param
         function getPageLink() {
-            return window.location.href;
+            return window.location.href.split('?')[0]; // strip any existing params
         }
 
         function waLink(p) {
+            const idx = products.indexOf(p);
+            // Build URL with product parameter
+            const url = getPageLink() + '?product=' + idx;
             const msg = encodeURIComponent(
                 `Hi! I'd like to order ${p.name} (₵${p.price}).\n\n` +
                 `Product: ${p.name}\nPrice: ₵${p.price}\n\n` +
-                `View product: ${getPageLink()}`
+                `View product: ${url}`
             );
             return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
         }
@@ -1299,7 +1301,7 @@
         /* ---------- WHATSAPP LINKS ---------- */
         const genericWaLink = getGenericWaLink();
         document.getElementById('topWaBtn').href = genericWaLink;
-      
+       
         document.getElementById('footerWaBtn').href = genericWaLink;
 
         /* ---------- SCROLL REVEAL ---------- */
@@ -1314,10 +1316,31 @@
         }, { threshold: 0.15 });
         revealEls.forEach(el => io.observe(el));
 
+        /* ---------- URL PRODUCT PARAMETER ---------- */
+        function handleProductParam() {
+            const params = new URLSearchParams(window.location.search);
+            const productParam = params.get('product');
+            if (productParam !== null) {
+                const idx = parseInt(productParam, 10);
+                if (!isNaN(idx) && idx >= 0 && idx < products.length && idx !== current) {
+                    // Small delay to ensure initial render is complete
+                    setTimeout(() => {
+                        goTo(idx);
+                        // Scroll to spotlight after navigating
+                        document.getElementById('spotlightSection').scrollIntoView({ behavior: 'smooth',
+                            block: 'start' });
+                    }, 300);
+                }
+            }
+        }
+
         /* ---------- INIT ---------- */
         buildShelf();
         renderSpotlight(0, null);
         startAutoplay();
+
+        // Check for product parameter after initial render
+        handleProductParam();
 
         /* ---------- INTRO GRIND-IN ---------- */
         window.addEventListener('load', () => {
