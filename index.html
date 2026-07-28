@@ -265,7 +265,6 @@
             transition: transform .3s ease;
             background: rgba(255,255,255,0.04);
         }
-        /* No hint animation – just clean transitions */
         .mat-stage:hover .slide-image-wrap img { transform: scale(1.03) rotate(-1deg); }
         .slide-image-wrap.out-left { transform: translateX(-160px) rotate(-6deg) scale(.85); opacity: 0; }
         .slide-image-wrap.out-right { transform: translateX(160px) rotate(6deg) scale(.85); opacity: 0; }
@@ -908,8 +907,26 @@
             el.classList.add('pop');
         }
 
+        // Get current page URL for sharing
+        function getPageLink() {
+            return window.location.href;
+        }
+
         function waLink(p) {
-            const msg = encodeURIComponent(`Hi! I'd like to order ${p.name} (₵${p.price}). Is it available?`);
+            const msg = encodeURIComponent(
+                `Hi! I'd like to order ${p.name} (₵${p.price}).\n\n` +
+                `Product: ${p.name}\nPrice: ₵${p.price}\n\n` +
+                `View product: ${getPageLink()}`
+            );
+            return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+        }
+
+        // Generic WhatsApp link (for topbar, hero, footer)
+        function getGenericWaLink() {
+            const msg = encodeURIComponent(
+                `Hi! I'd like to know more about Shai shito.\n\n` +
+                `Check out the full range: ${getPageLink()}`
+            );
             return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
         }
 
@@ -971,7 +988,7 @@
 
         function goTo(i) {
             if (i === current) return;
-            resetAutoplay(); // Reset timer on manual slide change
+            resetAutoplay();
             const dir = i > current ? 'left' : 'right';
             current = i;
             renderSpotlight(current, dir);
@@ -1035,10 +1052,10 @@
         }
 
         /* ---------- WHATSAPP LINKS ---------- */
-        const genericMsg = encodeURIComponent("Hi! I'd like to know more about Shai shito.");
-        document.getElementById('topWaBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${genericMsg}`;
-        document.getElementById('heroWaBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${genericMsg}`;
-        document.getElementById('footerWaBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${genericMsg}`;
+        const genericWaLink = getGenericWaLink();
+        document.getElementById('topWaBtn').href = genericWaLink;
+        document.getElementById('heroWaBtn').href = genericWaLink;
+        document.getElementById('footerWaBtn').href = genericWaLink;
 
         /* ---------- SCROLL REVEAL ---------- */
         const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
