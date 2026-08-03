@@ -239,41 +239,21 @@
             color: var(--cream-dim);
         }
 
+        /* ---------- Jar Stage ---------- */
         .jar-stage {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: var(--ink); 
         }
-        .jar-stage svg {
-            width: min(300px, 74vw);
+        
+        .jar-img {
+            width: min(400px, 80vw);
+            border-radius: 12px;
+            /* Removed mix-blend-mode: multiply */
             filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.55));
-        }
-        .drip {
-            animation: driptrans 3.6s ease-in-out infinite;
-        }
-        @keyframes driptrans {
-            0%,
-            100% {
-                transform: translateY(0);
-                opacity: 0.9;
-            }
-            50% {
-                transform: translateY(6px);
-                opacity: 0.55;
-            }
-        }
-        .sauce-shine {
-            animation: shine 5s ease-in-out infinite;
-        }
-        @keyframes shine {
-            0%,
-            100% {
-                opacity: 0.35;
-            }
-            50% {
-                opacity: 0.7;
-            }
+            object-fit: cover;
         }
 
         .head-block {
@@ -664,6 +644,20 @@
             .jar-stage {
                 margin-top: 36px;
                 order: -1;
+                
+                /* Break out of the padded container to go edge-to-edge */
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                background-color: transparent;
+                padding: 0;
+            }
+            .jar-img {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+                filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.55));
+                object-fit: cover;
             }
             .story .grid {
                 max-width: 100%;
@@ -703,47 +697,9 @@
                 </div>
             </div>
 
+            <!-- UPDATED IMAGE SECTION -->
             <div class="jar-stage">
-                <svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stop-color="#3a2a20" stop-opacity="0.5" />
-                            <stop offset="45%" stop-color="#1f1710" stop-opacity="0.15" />
-                            <stop offset="100%" stop-color="#3a2a20" stop-opacity="0.5" />
-                        </linearGradient>
-                        <linearGradient id="sauce" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#6b2417" />
-                            <stop offset="55%" stop-color="#2e1710" />
-                            <stop offset="100%" stop-color="#170e09" />
-                        </linearGradient>
-                        <linearGradient id="lidgrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#F0C878" />
-                            <stop offset="100%" stop-color="#B27E32" />
-                        </linearGradient>
-                        <clipPath id="jarclip">
-                            <path d="M75 90 Q75 70 95 70 L205 70 Q225 70 225 90 L232 330 Q232 360 200 360 L100 360 Q68 360 68 330 Z" />
-                        </clipPath>
-                    </defs>
-                    <rect x="98" y="30" width="104" height="46" rx="6" fill="url(#lidgrad)" />
-                    <rect x="92" y="66" width="116" height="16" rx="4" fill="#C9903F" />
-                    <path d="M75 90 Q75 70 95 70 L205 70 Q225 70 225 90 L232 330 Q232 360 200 360 L100 360 Q68 360 68 330 Z" fill="#1a130e" stroke="rgba(243,233,216,0.18)" stroke-width="1.5" />
-                    <g clip-path="url(#jarclip)">
-                        <rect x="60" y="120" width="180" height="250" fill="url(#sauce)" />
-                        <ellipse class="sauce-shine" cx="150" cy="128" rx="90" ry="14" fill="#8a3a22" opacity="0.5" />
-                        <circle cx="120" cy="180" r="5" fill="#4a1f14" opacity="0.7" />
-                        <circle cx="175" cy="230" r="7" fill="#3a1a10" opacity="0.6" />
-                        <circle cx="140" cy="290" r="4" fill="#5a2416" opacity="0.6" />
-                    </g>
-                    <rect x="75" y="90" width="180" height="270" fill="url(#glass)" clip-path="url(#jarclip)" />
-                    <rect x="88" y="100" width="14" height="230" rx="7" fill="rgba(255,255,255,0.08)" />
-                    <rect x="78" y="190" width="144" height="86" rx="3" fill="#F3E9D8" />
-                    <rect x="78" y="190" width="144" height="6" fill="#D8A44E" />
-                    <text x="150" y="222" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="20" fill="#17110D">myShito</text>
-                    <text x="150" y="240" text-anchor="middle" font-family="'Space Mono', monospace" font-size="8" letter-spacing="2" fill="#B23A24">EXTRA HOT</text>
-                    <line x1="98" y1="252" x2="202" y2="252" stroke="#C9BBA3" stroke-width="1" />
-                    <text x="150" y="266" text-anchor="middle" font-family="'Space Mono', monospace" font-size="7" letter-spacing="1.5" fill="#6b5a45">ACCRA · GHANA</text>
-                    <path class="drip" d="M212 358 q4 14 0 22 q-5 -3 -5 -11 q0 -8 5 -11 Z" fill="#8a3a22" />
-                </svg>
+                <img src="main.png" alt="A bowl of myShito pepper sauce with dried chilies" class="jar-img" />
             </div>
         </div>
     </section>
